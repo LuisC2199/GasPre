@@ -31,7 +31,7 @@ public class Categories {
         }
     }
 
-    // Desafío 1
+    // Parte 1
     public static List<String> getCategoryPaths(Category root){
         List<String> result = new ArrayList<>();
         
@@ -61,4 +61,34 @@ public class Categories {
         return result;
     }
 
+    // Parte 2
+    public static Category findCategory(Category root, int targetId){
+        // Caso nulo
+        if(root == null) return null;
+
+        Deque<Category> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        // Recorrer toda la categoría
+        while (!stack.isEmpty()) {
+            Category current = stack.pop();
+
+            // Si es la categoria acutal regresarla
+            if(current.id == targetId) {
+                return current;
+            }
+
+            // Si tiene subcategorías se agregan al stack
+            if(current.subcategories != null){
+                for(Category child : current.subcategories){
+                    stack.push(child);
+                }
+            }
+            
+        }
+        // regresa nulo si no existe ese id
+        return null;
+    }
+
 }
+
